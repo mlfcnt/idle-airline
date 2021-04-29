@@ -1,4 +1,4 @@
-import { Progress, Button } from "antd";
+import { Progress, Button, notification } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useInterval } from "react-use";
 import styled from "styled-components";
@@ -8,6 +8,10 @@ function FirstProgress() {
   const [progress, setProgress] = useState(0);
   const [money, setMoney] = useState(0);
   const [upgrades, setUpgrades] = useState([]);
+
+  notification.config({
+    placement: "topRight",
+  });
 
   const PROGRESS_STEP = 10;
   const MONEY_STEP = 1;
@@ -41,16 +45,19 @@ function FirstProgress() {
     if (progress >= 100) setProgress(0);
   }, [progress]);
 
-  useEffect(() => {
-    const token = jwt.sign({ progress, money, upgrades }, JWT_TOKEN);
-    localStorage.setItem("token", token);
-  }, [progress, money, upgrades]);
-
   const hasUpgrade = (upgrade) => upgrades.includes(upgrade);
+
+  const alert = ({ message, description = "", type = "success" }) => {
+    notification[type]({
+      message,
+      description,
+    });
+  };
 
   useEffect(() => {
     if (progress !== 100) return;
     setMoney(money + MONEY_STEP);
+    alert({ message: "Money  + 1" });
   }, [progress]);
 
   useInterval(
@@ -59,6 +66,12 @@ function FirstProgress() {
     },
     hasUpgrade(eUpgrades.AUTOMATE) ? 1000 : null
   );
+
+  useInterval(() => {
+    const token = jwt.sign({ progress, money, upgrades }, JWT_TOKEN);
+    localStorage.setItem("token", token);
+    alert({ message: "Sauvegarde", type: "info" });
+  }, 10000);
 
   return (
     <>
