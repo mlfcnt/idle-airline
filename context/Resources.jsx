@@ -1,6 +1,11 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import jwt from "jsonwebtoken";
-import { eUpgrades, JWT_TOKEN, MONEY_STEP } from "../lib/constants";
+import {
+  eUpgrades,
+  JWT_TOKEN,
+  MONEY_STEP,
+  PROGRESS_STEP,
+} from "../lib/constants";
 import { alert } from "../lib/helpers";
 import { useInterval } from "react-use";
 
