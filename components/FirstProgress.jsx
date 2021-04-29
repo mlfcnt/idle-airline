@@ -66,20 +66,19 @@ function FirstProgress() {
         onClick={manuallyAddProgress}
         hidden={hasUpgrade(eUpgrades.AUTOMATE)}
       >
-        {progress === (0 || 100)
+        {[0, 100].includes(progress)
           ? "Faire un spectacle"
           : "Continuer le spectacle"}
       </BuyBtn>
       <Progress type="circle" percent={progress} width={80} />
       <AutomateBtn
-        hidden={money < 50 || hasUpgrade(eUpgrades.AUTOMATE)}
+        hidden={money < 5 || hasUpgrade(eUpgrades.AUTOMATE)}
         disabled={money < 100}
         onClick={() => setUpgrades([...upgrades, eUpgrades.AUTOMATE])}
       >
-        {money < 100 ? "Automate (100$)" : "Automate"}
+        {money < 10 ? "Automate (10$)" : "Automate"}
       </AutomateBtn>
       <p>{`Money: ${money} $`}</p>
-      <p>{`Progress: ${progress} %`}</p>
     </>
   );
 }
