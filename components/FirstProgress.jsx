@@ -73,7 +73,7 @@ function FirstProgress() {
       <Progress type="circle" percent={progress} width={80} />
       <AutomateBtn
         hidden={money < 5 || hasUpgrade(eUpgrades.AUTOMATE)}
-        disabled={money < 100}
+        disabled={money < 10}
         onClick={() => setUpgrades([...upgrades, eUpgrades.AUTOMATE])}
       >
         {money < 10 ? "Automate (10$)" : "Automate"}
