@@ -70,7 +70,7 @@ function FirstProgress() {
   useInterval(() => {
     const token = jwt.sign({ progress, money, upgrades }, JWT_TOKEN);
     localStorage.setItem("token", token);
-    alert({ message: "Sauvegarde", type: "info" });
+    alert({ message: "Sauvegarde en cours...", type: "info" });
   }, 10000);
 
   const resetProgress = () => {
@@ -85,9 +85,10 @@ function FirstProgress() {
       <BuyBtn
         onClick={manuallyAddProgress}
         hidden={hasUpgrade(eUpgrades.AUTOMATE)}
+        type="primary"
       >
         {[0, 100].includes(progress)
-          ? "Faire un spectacle"
+          ? "Lancer un spectacle"
           : "Continuer le spectacle"}
       </BuyBtn>
       <Progress type="circle" percent={progress} width={80} />
