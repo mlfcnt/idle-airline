@@ -73,8 +73,16 @@ function FirstProgress() {
     alert({ message: "Sauvegarde", type: "info" });
   }, 10000);
 
+  const resetProgress = () => {
+    localStorage.removeItem("token");
+    setProgress(0);
+    setMoney(0);
+    setUpgrades([]);
+  };
+
   return (
     <>
+      <Button onClick={resetProgress}>Supprimer la sauvegarde</Button>
       <BuyBtn
         onClick={manuallyAddProgress}
         hidden={hasUpgrade(eUpgrades.AUTOMATE)}
