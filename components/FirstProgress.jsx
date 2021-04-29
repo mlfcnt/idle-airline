@@ -1,4 +1,4 @@
-import { Progress, Button, notification } from "antd";
+import { Progress, Button, notification, Divider } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { useInterval } from "react-use";
 import styled from "styled-components";
@@ -82,7 +82,6 @@ function FirstProgress() {
 
   return (
     <>
-      <Button onClick={resetProgress}>Supprimer la sauvegarde</Button>
       <BuyBtn
         onClick={manuallyAddProgress}
         hidden={hasUpgrade(eUpgrades.AUTOMATE)}
@@ -100,6 +99,10 @@ function FirstProgress() {
         {money < 10 ? "Automate (10$)" : "Automate"}
       </AutomateBtn>
       <p>{`Money: ${money} $`}</p>
+      <Divider />
+      <Button onClick={resetProgress} type="primary" danger>
+        Supprimer la sauvegarde
+      </Button>
     </>
   );
 }
