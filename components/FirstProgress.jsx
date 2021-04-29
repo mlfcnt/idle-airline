@@ -10,7 +10,7 @@ function FirstProgress() {
   const [upgrades, setUpgrades] = useState([]);
 
   notification.config({
-    placement: "topRight",
+    placement: "bottomLeft",
   });
 
   const PROGRESS_STEP = 10;
