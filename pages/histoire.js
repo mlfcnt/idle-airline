@@ -7,8 +7,8 @@ const Histoire = () => {
       <h1 style={{ textAlign: "center" }}>Chapitre 0</h1>
       <p style={{ textAlign: "center" }}>
         Tu es pauvre. Tu rève de pouvoir voler haut dans le ciel. Tu as une idée
-        mais elle va demander quelque euros pour débuter. Il ne reste qu'a
-        utiliser ton seul talent, le Hula Oops.
+        mais elle va demander quelque € pour débuter. Il ne reste qu'a utiliser
+        ton talent principal, le Hula Oops.
       </p>
     </div>
   );

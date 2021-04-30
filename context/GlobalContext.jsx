@@ -64,7 +64,7 @@ export function GlobalContextWrapper({ children }) {
   useEffect(() => {
     if (progress !== 100) return;
     setMoney(Math.floor((money + MONEY_STEP) * 10) / 10);
-    alert({ message: `Money  + ${MONEY_STEP}` });
+    alert({ message: `Money  + ${MONEY_STEP}€` });
   }, [progress]);
 
   const hasUpgrade = (upgrade) => upgrades.includes(upgrade);

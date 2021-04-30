@@ -41,8 +41,8 @@ function HulaHoops() {
       <PageHeader className="site-page-header" title="Hula Hoops" />
       <Paragraph>
         Pour pouvoir lancer la 1ere étape qui t'approchera de ton rève, tu dois
-        faire de la mula. Tu décides d'utiliser ton talent le plus naturel : le
-        Hula-Hoops ! Quelques prestations de rue devraient faire le taf.
+        faire du cash. Tu décides d'utiliser ton talent natuel : le Hula-Hoops !
+        Quelques prestations de rue devraient faire le taf.
       </Paragraph>
       <div
         style={{

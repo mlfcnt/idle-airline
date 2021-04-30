@@ -32,6 +32,7 @@ function Main({ children }) {
           </Menu.Item>
           <Menu.Item
             key="3"
+            color="red"
             icon={
               <DollarTwoTone
                 style={{ fontSize: "1.2rem" }}
@@ -39,9 +40,10 @@ function Main({ children }) {
               />
             }
             disabled
-            style={{ fontSize: "1.2rem", color: "red" }}
+            style={{ fontSize: "1.2rem", color: "gold" }}
+            className="menu-item-money"
           >
-            Money : {money || 0}
+            Mulaga : {money || 0}
           </Menu.Item>
         </Menu>
       </Header>
@@ -49,7 +51,6 @@ function Main({ children }) {
         <Sider width={200} className="site-layout-background">
           <Menu
             mode="inline"
-            defaultSelectedKeys={["1"]}
             defaultOpenKeys={["sub1"]}
             style={{ height: "100%", borderRight: 0 }}
           >
