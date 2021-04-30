@@ -3,11 +3,12 @@ import { Layout, Menu } from "antd";
 import {
   UserOutlined,
   SettingOutlined,
-  DollarOutlined,
+  DollarTwoTone,
+  BookOutlined,
 } from "@ant-design/icons";
 import styled from "styled-components";
 import Link from "next/link";
-import { useResourcesContext } from "../context/Resources";
+import { useGlobalContext } from "../context/GlobalContext";
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
@@ -16,18 +17,31 @@ const Container = styled(Layout)`
 `;
 
 function Main({ children }) {
-  const { money } = useResourcesContext();
+  const { money } = useGlobalContext();
 
   return (
     <Container>
       <Header className="header">
         <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1" icon={<DollarOutlined />}>
-            Money : {money || 0}
+        <Menu theme="dark" mode="horizontal">
+          <Menu.Item key="1" icon={<BookOutlined />}>
+            <Link href="/histoire">Histoire</Link>
           </Menu.Item>
           <Menu.Item key="2" icon={<SettingOutlined />}>
             <Link href="/options">Options</Link>
+          </Menu.Item>
+          <Menu.Item
+            key="3"
+            icon={
+              <DollarTwoTone
+                style={{ fontSize: "1.2rem" }}
+                twoToneColor="gold"
+              />
+            }
+            disabled
+            style={{ fontSize: "1.2rem", color: "red" }}
+          >
+            Money : {money || 0}
           </Menu.Item>
         </Menu>
       </Header>
@@ -39,10 +53,15 @@ function Main({ children }) {
             defaultOpenKeys={["sub1"]}
             style={{ height: "100%", borderRight: 0 }}
           >
-            <SubMenu key="sub1" icon={<UserOutlined />} title="Fleet">
+            <SubMenu key="sub1" icon={<UserOutlined />} title="Activitées">
               <Menu.Item key="1">
-                <Link href="/first-progress">Aircraft</Link>
+                <Link href="/hula-hoops">Hula Hoops</Link>
               </Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" icon={<UserOutlined />} title="Fleet" hidden>
+              {/* <Menu.Item key="1" hidden>
+                <Link href="/first-progress">Aircraft</Link>
+              </Menu.Item> */}
             </SubMenu>
           </Menu>
         </Sider>

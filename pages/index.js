@@ -1,5 +1,5 @@
-import FirstProgress from "./first-progress";
+import Histoire from "./histoire";
 
 export default function Home() {
-  return <FirstProgress />;
+  return <Histoire />;
 }

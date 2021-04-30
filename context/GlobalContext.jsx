@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import jwt from "jsonwebtoken";
 import {
+  DEFAULT_OPTIONS,
   eUpgrades,
   JWT_TOKEN,
   MONEY_STEP,
@@ -9,13 +10,14 @@ import {
 import { alert } from "../lib/helpers";
 import { useInterval } from "react-use";
 
-const ResourcesContext = createContext();
+const GlobalContext = createContext();
 
-export function ResourcesWrapper({ children }) {
+export function GlobalContextWrapper({ children }) {
   const [progress, setProgress] = useState(0);
   const [money, setMoney] = useState(0);
   const [upgrades, setUpgrades] = useState([]);
   const [saveJWT, setSaveJWT] = useState("");
+  const [options, setOptions] = useState(DEFAULT_OPTIONS);
 
   const setResources = ({ progress, money, upgrades }) => {
     setProgress(progress);
@@ -27,8 +29,12 @@ export function ResourcesWrapper({ children }) {
   useEffect(() => {
     const token = localStorage.getItem("idle-airline-save");
     if (token) {
-      const { progress, money, upgrades } = jwt.verify(token, JWT_TOKEN);
+      const { progress, money, upgrades, options } = jwt.verify(
+        token,
+        JWT_TOKEN
+      );
       setResources({ progress, money, upgrades });
+      options && setOptions(options);
     }
   }, []);
 
@@ -41,13 +47,13 @@ export function ResourcesWrapper({ children }) {
     [progress, money, upgrades]
   );
 
-  // A chaque fois qu'une des ressources est update on update le local storage
+  // A chaque fois qu'une des ressources ou options est update on update le local storage
   useEffect(() => {
-    if (!resources) return;
-    const token = jwt.sign(resources, JWT_TOKEN);
+    if (!resources && !options) return;
+    const token = jwt.sign({ ...resources, ...options }, JWT_TOKEN);
     setSaveJWT(token);
     localStorage.setItem("idle-airline-save", token);
-  }, [resources]);
+  }, [resources, options]);
 
   // Si progress est au dessus de 100 on le remet a 0
   useEffect(() => {
@@ -57,8 +63,8 @@ export function ResourcesWrapper({ children }) {
   // Quand progress atteint les 100% on incremente la money
   useEffect(() => {
     if (progress !== 100) return;
-    setMoney(money + MONEY_STEP);
-    alert({ message: "Money  + 1" });
+    setMoney(Math.floor((money + MONEY_STEP) * 10) / 10);
+    alert({ message: `Money  + ${MONEY_STEP}` });
   }, [progress]);
 
   const hasUpgrade = (upgrade) => upgrades.includes(upgrade);
@@ -72,7 +78,7 @@ export function ResourcesWrapper({ children }) {
   );
 
   return (
-    <ResourcesContext.Provider
+    <GlobalContext.Provider
       value={{
         resources,
         progress,
@@ -84,13 +90,15 @@ export function ResourcesWrapper({ children }) {
         setResources,
         hasUpgrade,
         saveJWT,
+        options,
+        setOptions,
       }}
     >
       {children}
-    </ResourcesContext.Provider>
+    </GlobalContext.Provider>
   );
 }
 
-export function useResourcesContext() {
-  return useContext(ResourcesContext);
+export function useGlobalContext() {
+  return useContext(GlobalContext);
 }

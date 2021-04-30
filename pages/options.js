@@ -1,9 +1,11 @@
-import { Button } from "antd";
-import React from "react";
+import { Button, PageHeader, Switch } from "antd";
+import React, { useMemo } from "react";
 import { DownloadOutlined, CloseOutlined } from "@ant-design/icons";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import styled from "styled-components";
-import { useResourcesContext } from "../context/Resources";
+import { useGlobalContext } from "../context/GlobalContext";
+import { alert } from "../lib/helpers";
+import { eOptions } from "../lib/constants";
 
 const Container = styled.div`
   display: flex;
@@ -14,7 +16,7 @@ const CopyBtn = styled(CopyToClipboard)`
 `;
 
 function options() {
-  const { setResources, saveJWT } = useResourcesContext();
+  const { setResources, saveJWT, options, setOptions } = useGlobalContext();
   const resetProgress = () => {
     localStorage.removeItem("idle-airline-save");
     setResources({
@@ -23,23 +25,55 @@ function options() {
       upgrades: [],
     });
   };
+
   return (
-    <Container>
-      <CopyBtn text={saveJWT}>
-        <Button type="primary" icon={<DownloadOutlined />} size="large">
-          Copier la sauvegarde
+    <>
+      <PageHeader className="site-page-header" title="Options" />
+      <Container>
+        <p>Sauvegarde</p>
+        <CopyBtn text={saveJWT}>
+          <Button
+            type="primary"
+            icon={<DownloadOutlined />}
+            size="large"
+            onClick={() =>
+              alert({
+                message: "Sauvegarde copiée dans le presse papier",
+                type: "info",
+              })
+            }
+          >
+            Copier
+          </Button>
+        </CopyBtn>
+        <Button
+          type="primary"
+          icon={<CloseOutlined />}
+          size="large"
+          danger
+          onClick={resetProgress}
+        >
+          Effacer
         </Button>
-      </CopyBtn>
-      <Button
-        type="primary"
-        icon={<CloseOutlined />}
-        size="large"
-        danger
-        onClick={resetProgress}
-      >
-        Effacer la sauvegarde
-      </Button>
-    </Container>
+        <div style={{ marginTop: "2vh" }}>
+          <span style={{ marginRight: "1vw" }}>Notifications</span>
+          <Switch
+            checked={!!options[eOptions.NOTIFICATIONS]}
+            onChange={() => {
+              // !!current &&
+              //   alert({
+              //     type: "info",
+              //     message: "Notifications activées",
+              //   });
+              setOptions({
+                ...options,
+                [eOptions.NOTIFICATIONS]: !options[eOptions.NOTIFICATIONS],
+              });
+            }}
+          />
+        </div>
+      </Container>
+    </>
   );
 }
 
