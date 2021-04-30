@@ -61,11 +61,13 @@ function HulaHoops() {
         <Progress type="circle" percent={progress} width={80} />
       </div>
       <Btn
-        hidden={money < 5 || hasUpgrade(eUpgrades.AUTOMATE)}
-        disabled={money < 10}
+        hidden={money < 0.5 || hasUpgrade(eUpgrades.AUTOMATE)}
+        disabled={money < 1}
         onClick={() => setUpgrades([...upgrades, eUpgrades.AUTOMATE])}
       >
-        {money < 10 ? "Automate (10$)" : "Automate"}
+        {money < 10
+          ? "Laisser son corps s'exprimer (1$)"
+          : "Laisser son corps s'exprimer"}
       </Btn>
     </>
   );

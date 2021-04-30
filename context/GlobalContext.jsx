@@ -15,6 +15,7 @@ const GlobalContext = createContext();
 export function GlobalContextWrapper({ children }) {
   const [progress, setProgress] = useState(0);
   const [money, setMoney] = useState(0);
+  console.log("👽CLG - money", money);
   const [upgrades, setUpgrades] = useState([]);
   const [saveJWT, setSaveJWT] = useState("");
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
@@ -63,7 +64,8 @@ export function GlobalContextWrapper({ children }) {
   // Quand progress atteint les 100% on incremente la money
   useEffect(() => {
     if (progress !== 100) return;
-    setMoney(Math.floor((money + MONEY_STEP) * 10) / 10);
+    console.log(money + MONEY_STEP, Math.floor((money + MONEY_STEP) * 10) / 10);
+    setMoney(Math.round((money + MONEY_STEP) * 10) / 10);
     alert({ message: `Money  + ${MONEY_STEP}€` });
   }, [progress]);
 
