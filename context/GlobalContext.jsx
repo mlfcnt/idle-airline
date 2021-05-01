@@ -15,7 +15,6 @@ const GlobalContext = createContext();
 export function GlobalContextWrapper({ children }) {
   const [progress, setProgress] = useState(0);
   const [money, setMoney] = useState(0);
-  console.log("👽CLG - money", money);
   const [upgrades, setUpgrades] = useState([]);
   const [saveJWT, setSaveJWT] = useState("");
   const [options, setOptions] = useState(DEFAULT_OPTIONS);
